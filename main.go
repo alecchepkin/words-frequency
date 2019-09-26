@@ -32,7 +32,6 @@ func main() {
 			panic(err)
 		}
 	}
-
 	file, err := os.Open(name)
 	if err != nil {
 		log.Fatal(err)
@@ -40,18 +39,15 @@ func main() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-
 	trie := list.NewTrie(num)
 	converter := text.NewConverter()
 	for scanner.Scan() {
 		data := scanner.Bytes()
 		words := converter.Split(data)
-
 		for _, w := range words {
 			trie.Insert(w)
 		}
 	}
-
 	for _, node := range trie.GetMostFrequent() {
 		fmt.Printf("%d %s\n", node.Count, node.Word)
 	}

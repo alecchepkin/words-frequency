@@ -1,5 +1,8 @@
 package list
 
+// Trie is an ordered tree data structure
+// list - frequency list
+// lnum - number of words searching
 type Trie struct {
 	root *Node
 	list []*Node
