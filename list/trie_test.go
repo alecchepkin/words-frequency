@@ -28,15 +28,15 @@ func TestTrie_Insert(t *testing.T) {
 		}},
 
 		{"add two letter", "ab", nil, []*Node{{
-			Letter: "a", Count: 0, Word: "", index: 0, children: []*Node{
+			Letter: "a", Count: 0, Word: "", index: -1, children: []*Node{
 				{Letter: "b", Count: 1, Word: "ab", index: 0, children: []*Node{}},
 			}},
 		},
 		},
 
 		{"add three letter", "abc", nil, []*Node{{
-			Letter: "a", Count: 0, Word: "", index: 0, children: []*Node{
-				{Letter: "b", Count: 0, Word: "", index: 0, children: []*Node{
+			Letter: "a", Count: 0, Word: "", index: -1, children: []*Node{
+				{Letter: "b", Count: 0, Word: "", index: -1, children: []*Node{
 					{Letter: "c", Count: 1, Word: "abc", index: 0, children: []*Node{}},
 				}},
 			}},
@@ -105,9 +105,9 @@ func TestTrie_addToList(t *testing.T) {
 		},
 		}},
 		{"add c shod order", fields{list: []*Node{
-			{Word: "a", Count: 1},
-			{Word: "b", Count: 1},
-			{Word: "c", Count: 1},
+			{Word: "a", Count: 1, index: 0},
+			{Word: "b", Count: 1, index: 1},
+			{Word: "c", Count: 1, index: 2},
 		}}, args{node: &Node{Word: "c", Count: 2, index: 2}}, want{0, []*Node{
 			{Word: "c", Count: 2, index: 0},
 			{Word: "a", Count: 1, index: 1},
@@ -123,7 +123,7 @@ func TestTrie_addToList(t *testing.T) {
 			}
 			node := tt.args.node
 			if node.index >= 0 {
-				node = tt.fields.list[node.index]
+				trie.list[node.index] = node
 			}
 			if got := trie.addToList(node); got != tt.want.index {
 				t.Error(pretty.Sprintf("addToList() = %v, want %v, list: %v, should be:%v", got, tt.want.index, trie.list, tt.want.list))

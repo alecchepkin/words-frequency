@@ -54,6 +54,8 @@ func (trie *Trie) addToList(node *Node) int {
 			trie.list[trie.lnum-1].index = -1
 			trie.list[trie.lnum-1] = node
 			index = trie.lnum - 1
+		} else {
+			return index
 		}
 	}
 
@@ -61,21 +63,12 @@ func (trie *Trie) addToList(node *Node) int {
 		for i := index; i > 0; i-- {
 			if trie.list[i].Count > trie.list[i-1].Count {
 				trie.list[i-1], trie.list[i] = trie.list[i], trie.list[i-1]
+				trie.list[i-1].index, trie.list[i].index = i-1, i
 				index = i - 1
-
 			}
 		}
 	}
-	if index < 0 {
-		for i := index; i > 0; i-- {
-			if trie.list[i].Count > trie.list[i-1].Count {
-				trie.list[i-1], trie.list[i] = trie.list[i], trie.list[i-1]
-				index = i - 1
 
-			}
-		}
-
-	}
 	node.index = index
 	return index
 }
