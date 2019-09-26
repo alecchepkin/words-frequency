@@ -28,7 +28,6 @@ func (trie *Trie) Insert(word string) {
 	node := trie.root
 	for i := 0; i < len(word); i++ {
 		letter := string(word[i])
-
 		var child *Node
 		for _, childNode := range node.children {
 			if letter == childNode.Letter {
@@ -42,7 +41,6 @@ func (trie *Trie) Insert(word string) {
 			node.children = append(node.children, child)
 			node = child
 		}
-
 	}
 	node.Count++
 	node.Word = word
@@ -66,7 +64,6 @@ func (trie *Trie) addToList(node *Node) int {
 			return index
 		}
 	}
-
 	if index > 0 {
 		for i := index; i > 0; i-- {
 			if trie.list[i].Count >= trie.list[i-1].Count {
@@ -76,7 +73,6 @@ func (trie *Trie) addToList(node *Node) int {
 			}
 		}
 	}
-
 	node.index = index
 	return index
 }

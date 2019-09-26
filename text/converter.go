@@ -5,11 +5,14 @@ import (
 	"strings"
 )
 
-type Converter struct {
+type Converter struct{}
+
+func NewConverter() *Converter {
+	return &Converter{}
 }
 
 //Split parse string and split row by the words
-func (converter Converter) Split(data []byte) []string {
+func (Converter) Split(data []byte) []string {
 	res := make([]string, 0)
 	re, _ := regexp.Compile("[/]")
 	str := re.ReplaceAllString(string(data), " ")
@@ -25,8 +28,4 @@ func (converter Converter) Split(data []byte) []string {
 		res = append(res, w)
 	}
 	return res
-}
-
-func NewConverter() *Converter {
-	return &Converter{}
 }
