@@ -17,7 +17,7 @@ const defNum = 20
 
 func main() {
 	start := time.Now()
-	defer func() { fmt.Printf("time execution:%v", time.Now().Sub(start)) }()
+	defer func() { fmt.Printf("time execution:%v\n", time.Now().Sub(start)) }()
 
 	if len(os.Args) == 1 {
 		panic(errors.New("filename was not received"))
