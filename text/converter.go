@@ -14,10 +14,7 @@ func NewConverter() *Converter {
 //Split parse string and split row by the words
 func (Converter) Split(data []byte) []string {
 	res := make([]string, 0)
-	re, _ := regexp.Compile("[/]")
-	str := re.ReplaceAllString(string(data), " ")
-
-	for _, w := range strings.Fields(str) {
+	for _, w := range strings.Fields(string(data)) {
 		w = strings.ToLower(w)
 		re := regexp.MustCompile("[a-zA-Z]+")
 		match := re.FindStringSubmatch(w)
