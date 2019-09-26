@@ -104,7 +104,7 @@ func TestTrie_addToList(t *testing.T) {
 			{Word: "c", Count: 1, index: 2},
 		},
 		}},
-		{"add c shod order", fields{list: []*Node{
+		{"add c should reorder", fields{list: []*Node{
 			{Word: "a", Count: 1, index: 0},
 			{Word: "b", Count: 1, index: 1},
 			{Word: "c", Count: 1, index: 2},
@@ -112,6 +112,16 @@ func TestTrie_addToList(t *testing.T) {
 			{Word: "c", Count: 2, index: 0},
 			{Word: "a", Count: 1, index: 1},
 			{Word: "b", Count: 1, index: 2},
+		},
+		}},
+		{"add smaller d - don't add to list", fields{list: []*Node{
+			{Word: "a", Count: 1, index: 0},
+			{Word: "b", Count: 1, index: 1},
+			{Word: "c", Count: 1, index: 2},
+		}}, args{node: &Node{Word: "d", Count: 1, index: -1}}, want{-1, []*Node{
+			{Word: "a", Count: 1, index: 0},
+			{Word: "b", Count: 1, index: 1},
+			{Word: "c", Count: 1, index: 2},
 		},
 		}},
 	}

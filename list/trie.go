@@ -14,10 +14,13 @@ func NewTrie(num int) *Trie {
 	return trie
 }
 
-func (trie Trie) GetMostFrequent(i int) []*Node {
-	return []*Node{&Node{Letter: "eee", Count: 2}, {Letter: "bbb", Count: 2}}
+func (trie *Trie) GetMostFrequent() []*Node {
+	return trie.list
 }
 
+// Insert insert words in the trie and increase count.
+// If a word exists it increase the count only.
+// After that do adding to frequency list
 func (trie *Trie) Insert(word string) {
 	node := trie.root
 	for i := 0; i < len(word); i++ {
@@ -41,9 +44,11 @@ func (trie *Trie) Insert(word string) {
 	node.Count++
 	node.Word = word
 
+	// add to frequency list
 	trie.addToList(node)
 }
 
+// Adding and sorting frequency list
 func (trie *Trie) addToList(node *Node) int {
 	index := node.index
 	if index < 0 {
@@ -61,7 +66,7 @@ func (trie *Trie) addToList(node *Node) int {
 
 	if index > 0 {
 		for i := index; i > 0; i-- {
-			if trie.list[i].Count > trie.list[i-1].Count {
+			if trie.list[i].Count >= trie.list[i-1].Count {
 				trie.list[i-1], trie.list[i] = trie.list[i], trie.list[i-1]
 				trie.list[i-1].index, trie.list[i].index = i-1, i
 				index = i - 1
@@ -72,13 +77,3 @@ func (trie *Trie) addToList(node *Node) int {
 	node.index = index
 	return index
 }
-
-//
-//func (Trie) find(letter string, node *Node) (child *Node, err error) {
-//	for _, childNode := range node.children {
-//		if letter == childNode.Letter {
-//			return childNode, nil
-//		}
-//	}
-//	return nil, errors.New("not found")
-//}

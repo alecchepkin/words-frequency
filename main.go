@@ -12,7 +12,8 @@ import (
 	"time"
 )
 
-const defCount = 20
+// defNum default number of frequent words
+const defNum = 20
 
 func main() {
 	start := time.Now()
@@ -23,10 +24,10 @@ func main() {
 	}
 	name := os.Args[1]
 
-	count := defCount
+	num := defNum
 	if len(os.Args) > 2 {
 		var err error
-		count, err = strconv.Atoi(os.Args[2])
+		num, err = strconv.Atoi(os.Args[2])
 		if err != nil {
 			panic(err)
 		}
@@ -40,7 +41,7 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
-	trie := list.NewTrie()
+	trie := list.NewTrie(num)
 	converter := text.NewConverter()
 	for scanner.Scan() {
 		data := scanner.Bytes()
@@ -51,10 +52,7 @@ func main() {
 		}
 	}
 
-	mostFrequent := trie.GetMostFrequent(count)
-
-	fmt.Printf("%d most frequent\n:", count)
-	for _, node := range mostFrequent {
-		fmt.Printf("%d %s\n", node.Count, node.Count)
+	for _, node := range trie.GetMostFrequent() {
+		fmt.Printf("%d %s\n", node.Count, node.Word)
 	}
 }
