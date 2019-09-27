@@ -66,7 +66,7 @@ func (trie *Trie) addToList(node *Node) int {
 	}
 	if index > 0 {
 		for i := index; i > 0; i-- {
-			if trie.list[i].Count <= trie.list[i-1].Count {
+			if trie.list[i].Count < trie.list[i-1].Count {
 				break
 			}
 			trie.list[i-1], trie.list[i] = trie.list[i], trie.list[i-1]

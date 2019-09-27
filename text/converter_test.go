@@ -18,6 +18,13 @@ func TestConverter_Split(t *testing.T) {
 		{"cutting the word, take only suffix with letters", "abc10dsfsa", []string{"abc"}},
 		{"cutting the word, take only suffix with letters", "abc10dsfsa", []string{"abc"}},
 		{"split by slash", "abc/def", []string{"abc", "def"}},
+		{"split by dash", "Jonas-in-the-Whale", []string{"jonas", "in", "the", "whale"}},
+		{"remove asterisk", "**The Project", []string{"the", "project"}},
+		{"remove asterisk", "***START**THE", []string{"start", "the"}},
+		{"remove quotes", "\"The Indian", []string{"the", "indian"}},
+		{"remove dashes", "--THE", []string{"the"}},
+		{"should separate by ' ", "WEBSTER'S", []string{"webster", "s"}},
+		{"should separate . ' ", "GUTINDEX.ALL", []string{"gutindex", "all"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
